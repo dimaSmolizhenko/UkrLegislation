@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="0" author="roman.ilnitsky">
+        <sql>
+            CREATE TABLE USERS (
+                ID int8 NOT NULL,
+                FULL_NAME varchar(30) not null,
+                primary key (ID)
+            );
+        </sql>
+        <rollback>
+           	DROP TABLE USERS;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="1" author="roman.ilnitsky">
+        <sql>
+            INSERT INTO USERS (ID, FULL_NAME) values
+            (1, 'Bob'),
+            (2, 'Mary');
+        </sql>
+        <rollback>
+            DELETE FROM USERS WHERE ID=1 OR ID=2; 
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
