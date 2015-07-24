@@ -1,13 +1,17 @@
 package com.ukrlegislation.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by ramax on 7/21/15.
  */
+@Entity
+@Table(name="User")
 public class User implements Serializable{
 
     @Id
@@ -20,8 +24,7 @@ public class User implements Serializable{
     public User() {
     }
 
-    public User(Integer id, String login, String password, Date registrationDate, String role) {
-        this.id = id;
+    public User(String login, String password, Date registrationDate, String role) {
         this.login = login;
         this.password = password;
         this.registrationDate = registrationDate;

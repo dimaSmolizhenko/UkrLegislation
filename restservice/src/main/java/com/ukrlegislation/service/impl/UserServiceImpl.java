@@ -2,6 +2,7 @@ package com.ukrlegislation.service.impl;
 
 import com.ukrlegislation.model.User;
 import com.ukrlegislation.service.UserService;
+import org.springframework.jca.support.LocalConnectionFactoryBean;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,7 +19,8 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl() {
         users = new LinkedList<>();
-        users.add(new User(1,"zccmj","password",new Date(),"role"));
+        users.add(new User("zccmj","password",new Date(),"role"));
+
     }
 
     @Override

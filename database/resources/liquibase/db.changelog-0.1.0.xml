@@ -7,25 +7,156 @@
 
     <changeSet id="0" author="roman.ilnitsky">
         <sql>
-            CREATE TABLE USERS (
-                ID int8 NOT NULL,
-                FULL_NAME varchar(30) not null,
-                primary key (ID)
+            CREATE TABLE user (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              login VARCHAR(40) NOT NULL ,
+              password VARCHAR(40) NOT NULL,
+              full_name varchar(60),
+              register_date DATETIME NOT NULL,
+              role VARCHAR(10) NOT NULL,
+              PRIMARY KEY (id)
+            );
+
+            CREATE TABLE status (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              value VARCHAR(30) NOT NULL,
+              PRIMARY KEY (id)
+            );
+
+            CREATE TABLE like_me (
+              user_id BIGINT NOT NULL,
+              task_id BIGINT NOT NULL
+            );
+
+            CREATE TABLE comment (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              user_id BIGINT NOT NULL,
+              description VARCHAR(200) NOT NULL,
+              type_date DATETIME NOT NULL,
+              PRIMARY KEY (id)
+            );
+
+            CREATE TABLE search_criteria (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              name VARCHAR(50) NOT NULL,
+              PRIMARY KEY (id)
+            );
+
+            CREATE TABLE task (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              user_id BIGINT NOT NULL,
+              description VARCHAR(200) NOT NULL,
+              send_date DATETIME NOT NULL,
+              status_id BIGINT NOT NULL,
+              priority BIGINT NOT NULL,
+              criteria_id BIGINT NOT NULL,
+              PRIMARY KEY (id)
+            );
+
+            CREATE TABLE law (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              deputy_id BIGINT NOT NULL,
+              name VARCHAR(50) NOT NULL,
+              description VARCHAR(200) NOT NULL,
+              approvalDate DATE NOT NULL,
+              PRIMARY KEY (id)
+            );
+
+            CREATE TABLE deputy (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              full_name VARCHAR(100) NOT NULL,
+              choose_by VARCHAR(100) NOT NULL,
+              deputy_date DATE NOT NULL,
+              groups VARCHAR(50) NOT NULL,
+              encluded_in VARCHAR(50) NOT NULL,
+              PRIMARY KEY (id)
+            );
+
+
+            CREATE TABLE bill (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              deputy_id BIGINT NOT NULL,
+              name VARCHAR(40) NOT NULL,
+              description VARCHAR(200) NOT NULL,
+              making_date DATE NOT NULL,
+              PRIMARY KEY (id)
+            );
+
+            CREATE TABLE relation (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              deputy_id1 BIGINT NOT NULL,
+              deputy_id2 BIGINT NOT NULL,
+              name_id BIGINT NOT NULL,
+              PRIMARY KEY (id)
+            );
+
+            CREATE TABLE relation_name (
+              id BIGINT NOT NULL AUTO_INCREMENT,
+              name VARCHAR(50) NOT NULL,
+              PRIMARY KEY (id)
             );
         </sql>
         <rollback>
-           	DROP TABLE USERS;
+           DROP TABLE user;
+           DROP TABLE status;
+           DROP TABLE like_me;
+           DROP TABLE comment;
+           DROP TABLE search_criteria;
+           DROP TABLE task;
+           DROP TABLE law;
+           DROP TABLE deputy;
+           DROP TABLE bill;
+           DROP TABLE relation;
+           DROP TABLE relation_name;
         </rollback>
     </changeSet>
 
     <changeSet id="1" author="roman.ilnitsky">
         <sql>
-            INSERT INTO USERS (ID, FULL_NAME) values
-            (1, 'Bob'),
-            (2, 'Mary');
+            ALTER TABLE like_me ADD CONSTRAINT like_me_fk0 FOREIGN KEY (user_id) REFERENCES user(id);
+
+            ALTER TABLE like_me ADD CONSTRAINT like_me_fk1 FOREIGN KEY (task_id) REFERENCES task(id);
+
+            ALTER TABLE comment ADD CONSTRAINT comment_fk0 FOREIGN KEY (user_id) REFERENCES user(id);
+
+            ALTER TABLE task ADD CONSTRAINT task_fk0 FOREIGN KEY (user_id) REFERENCES user(id);
+
+            ALTER TABLE task ADD CONSTRAINT task_fk1 FOREIGN KEY (status_id) REFERENCES status(id);
+
+            ALTER TABLE task ADD CONSTRAINT task_fk2 FOREIGN KEY (criteria_id) REFERENCES search_criteria(id);
+
+            ALTER TABLE law ADD CONSTRAINT law_fk0 FOREIGN KEY (deputy_id) REFERENCES deputy(id);
+
+            ALTER TABLE bill ADD CONSTRAINT bill_fk0 FOREIGN KEY (deputy_id) REFERENCES deputy(id);
+
+            ALTER TABLE relation ADD CONSTRAINT relation_fk0 FOREIGN KEY (deputy_id1) REFERENCES deputy(id);
+
+            ALTER TABLE relation ADD CONSTRAINT relation_fk1 FOREIGN KEY (deputy_id2) REFERENCES deputy(id);
+
+            ALTER TABLE relation ADD CONSTRAINT relation_fk2 FOREIGN KEY (name_id) REFERENCES relation_name(id);
         </sql>
         <rollback>
-            DELETE FROM USERS WHERE ID=1 OR ID=2; 
+            ALTER TABLE like_me DROP FOREIGN KEY like_me_fk0;
+
+            ALTER TABLE like_me DROP FOREIGN KEY like_me_fk1;
+
+            ALTER TABLE comment DROP FOREIGN KEY comment_fk0;
+
+            ALTER TABLE task DROP FOREIGN KEY task_fk0;
+
+            ALTER TABLE task DROP FOREIGN KEY task_fk1;
+
+            ALTER TABLE task DROP FOREIGN KEY task_fk2;
+
+            ALTER TABLE law DROP FOREIGN KEY law_fk0;
+
+            ALTER TABLE bill DROP FOREIGN KEY bill_fk0;
+
+            ALTER TABLE relation DROP FOREIGN KEY relation_fk0;
+
+            ALTER TABLE relation DROP FOREIGN KEY relation_fk1;
+
+            ALTER TABLE relation DROP FOREIGN KEY relation_fk2;
         </rollback>
     </changeSet>
 
