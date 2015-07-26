@@ -1,4 +1,4 @@
-package com.ukrlegislation.model;
+package com.ukrlegislation.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,35 +7,45 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
+
 /**
- * Created by ramax on 7/21/15.
+ * Created by dima on 7/17/15.
  */
 @Entity
-@Table(name="User")
-public class User implements Serializable{
+@Table(name = "user")
+public class User implements Serializable {
 
     @Id
-    private Integer id;
+    private long id;
+
     private String login;
-    private String password;
+
+    private String  password;
+
+    @Column(name ="full_name")
+    private String fullName;
+
+    @Column(name = "register_date")
     private Date registrationDate;
+
     private String role;
 
-    public User() {
+    public User(){
     }
 
-    public User(String login, String password, Date registrationDate, String role) {
+    public User(String login, String password, String fullName, Date registrationDate, String role) {
         this.login = login;
         this.password = password;
+        this.fullName = fullName;
         this.registrationDate = registrationDate;
         this.role = role;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -55,6 +65,14 @@ public class User implements Serializable{
         this.password = password;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public Date getRegistrationDate() {
         return registrationDate;
     }
@@ -69,5 +87,17 @@ public class User implements Serializable{
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
