@@ -34,7 +34,7 @@ public class BillServiceImpl implements BillService {
     }
 
     public void update(Bill entity) {
-        // TODO
+        repository.save(entity);
     }
 
     public void getByName(String name) {

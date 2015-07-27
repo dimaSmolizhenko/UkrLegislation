@@ -34,7 +34,7 @@ public class DeputyServiceImpl implements DeputyService{
     }
 
     public void update(Deputy entity) {
-        //TODO
+        deputyRepository.save(entity);
     }
 
     public void getByName(String name) {

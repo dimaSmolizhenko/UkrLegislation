@@ -38,9 +38,8 @@ public class LawServiceImpl implements LawService {
     }
 
     public void update(Law entity) {
-        //TODO
+        lawRepository.save(entity);
     }
-
 
     public void getByName(String name) {
         //TODO

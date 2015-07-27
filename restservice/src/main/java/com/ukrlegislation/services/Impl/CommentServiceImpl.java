@@ -34,6 +34,6 @@ public class CommentServiceImpl implements CommentService{
     }
 
     public void update(Comment entity) {
-        // TODO
+        commentRepository.save(entity);
     }
 }

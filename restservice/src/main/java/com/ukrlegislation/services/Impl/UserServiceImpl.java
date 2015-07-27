@@ -23,29 +23,23 @@ public class UserServiceImpl implements UserService {
         return (List<User>) userRepository.findAll();
     }
 
-
     public void add(User user) {
         userRepository.save(user);
     }
 
-
     public void delete(Long id) {
         userRepository.delete(id);
     }
-
 
     public User getById(Long id) {
         return userRepository.findOne(id);
     }
 
     public void update(User entity) {
-        //TODO
+        userRepository.save(entity);
     }
-
 
     public void getByName(String name) {
         //TODO
     }
-
-
 }

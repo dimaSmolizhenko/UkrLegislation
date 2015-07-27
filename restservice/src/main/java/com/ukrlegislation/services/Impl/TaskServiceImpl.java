@@ -34,7 +34,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     public void update(Task entity) {
-        //TODO
+        taskRepository.save(entity);
     }
 
     public void getByName(String name) {

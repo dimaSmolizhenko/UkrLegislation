@@ -33,6 +33,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}",method = RequestMethod.POST)
     public void updateUser(@PathVariable long id, @RequestBody User user) {
+        user.setId(id);
         userService.update(user);
     }
 
@@ -40,6 +41,5 @@ public class UserController {
     public void deleteUser(@PathVariable long id) {
         userService.delete(id);
     }
-
 
 }
