@@ -33,6 +33,10 @@ public class BillServiceImpl implements BillService {
         return  repository.findOne(id);
     }
 
+    public void update(Bill entity) {
+        // TODO
+    }
+
     public void getByName(String name) {
         // TODO getByName
     }

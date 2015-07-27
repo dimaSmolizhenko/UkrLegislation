@@ -36,7 +36,10 @@ public class UserServiceImpl implements UserService {
 
     public User getById(Long id) {
         return userRepository.findOne(id);
-//        return new User("login","pass","fullName",new Date(),"role");
+    }
+
+    public void update(User entity) {
+        //TODO
     }
 
 

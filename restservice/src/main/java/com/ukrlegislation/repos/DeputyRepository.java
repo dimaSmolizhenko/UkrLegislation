@@ -7,6 +7,6 @@ import com.ukrlegislation.entities.Deputy;
 /**
  * Created by dima on 7/25/15.
  */
-@Repository
 public interface DeputyRepository extends CrudRepository<Deputy, Long> {
+
 }

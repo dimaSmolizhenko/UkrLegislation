@@ -17,7 +17,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/user/",method = RequestMethod.GET)
-    public List<User> getAllUsers() {
+    public Iterable<User> getAllUsers() {
         return userService.getAll();
     }
 
@@ -33,7 +33,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}",method = RequestMethod.POST)
     public void updateUser(@PathVariable long id, @RequestBody User user) {
-        //TODO add apdate
+        userService.update(user);
     }
 
     @RequestMapping(value = "/user/{id}",method = RequestMethod.DELETE)

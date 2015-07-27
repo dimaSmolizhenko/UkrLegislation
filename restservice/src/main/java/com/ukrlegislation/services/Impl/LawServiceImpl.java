@@ -37,6 +37,10 @@ public class LawServiceImpl implements LawService {
         return lawRepository.findOne(id);
     }
 
+    public void update(Law entity) {
+        //TODO
+    }
+
 
     public void getByName(String name) {
         //TODO

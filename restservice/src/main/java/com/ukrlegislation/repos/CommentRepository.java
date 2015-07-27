@@ -7,6 +7,6 @@ import com.ukrlegislation.entities.Comment;
 /**
  * Created by dima on 7/25/15.
  */
-@Repository
 public interface CommentRepository extends CrudRepository<Comment, Long> {
+
 }
