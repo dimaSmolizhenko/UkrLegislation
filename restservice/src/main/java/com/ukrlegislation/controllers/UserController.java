@@ -26,9 +26,9 @@ public class UserController {
         return userService.getById(id);
     }
 
-    @RequestMapping(value = "/user/",method = RequestMethod.POST)
-    public User addUser(@RequestBody User user) {
-        return user;
+    @RequestMapping(value = "/user/",method = RequestMethod.PUT)
+    public void addUser(@RequestBody User user) {
+        userService.add(user);
     }
 
     @RequestMapping(value = "/user/{id}",method = RequestMethod.POST)
