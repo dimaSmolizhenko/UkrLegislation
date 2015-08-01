@@ -16,7 +16,7 @@ public class Law implements Serializable {
 
     @Id
     @Column(name = "lawId")
-    private long lawId;
+    private long Id;
 
     @Column(name = "deputy_id")
     private long deputyId;
@@ -39,12 +39,12 @@ public class Law implements Serializable {
         this.approvalDate = approvalDate;
     }
 
-    public long getLawId() {
-        return lawId;
+    public long getId() {
+        return Id;
     }
 
-    public void setLawId(long lawId) {
-        this.lawId = lawId;
+    public void setId(long id) {
+        this.Id = id;
     }
 
     public long getDeputyId() {
