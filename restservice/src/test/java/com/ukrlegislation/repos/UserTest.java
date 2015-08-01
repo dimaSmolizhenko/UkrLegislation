@@ -1,5 +1,6 @@
 package com.ukrlegislation.repos;
 
+import com.ukrlegislation.entities.Role;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +34,10 @@ public class UserTest {
         user.setPassword("pass");
         user.setFullName("qwertyu");
         user.setRegistrationDate(new Date());
-        user.setRole("roleAdmin");
+
+        Role userRole = new Role();
+        userRole.setId(1L);
+        user.setRole(userRole);
 
         userRepository.save(user);
     }

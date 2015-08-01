@@ -15,11 +15,10 @@ import java.util.Date;
 public class Law implements Serializable {
 
     @Id
-    @Column(name = "lawId")
     private long Id;
 
-    @Column(name = "deputy_id")
-    private long deputyId;
+    @Column(name = "unique_person_code_id")
+    private long uniquePersonCode;
 
     private String name;
 
@@ -27,13 +26,12 @@ public class Law implements Serializable {
 
     private Date approvalDate;
 
-
     public Law() {
 
     }
 
-    public Law(long deputyId, String name, String description, Date approvalDate) {
-        this.deputyId = deputyId;
+    public Law(long uniquePersonCode, String name, String description, Date approvalDate) {
+        this.uniquePersonCode = uniquePersonCode;
         this.name = name;
         this.description = description;
         this.approvalDate = approvalDate;
@@ -47,12 +45,12 @@ public class Law implements Serializable {
         this.Id = id;
     }
 
-    public long getDeputyId() {
-        return deputyId;
+    public long getUniquePersonCode() {
+        return uniquePersonCode;
     }
 
-    public void setDeputyId(long deputyId) {
-        this.deputyId = deputyId;
+    public void setUniquePersonCode(long deputyId) {
+        this.uniquePersonCode = deputyId;
     }
 
     public String getName() {

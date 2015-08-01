@@ -18,8 +18,8 @@ public class Bill implements Serializable {
     @Id
     private long id;
 
-    @Column(name = "deputy_id")
-    private Integer deputyId ;
+    @Column(name = "unique_person_code_id")
+    private long uniquePersonCode;
 
     private String name ;
 
@@ -32,8 +32,8 @@ public class Bill implements Serializable {
 
     }
 
-    public Bill(Integer deputyId, String name, String description, Date makingDate) {
-        this.deputyId = deputyId;
+    public Bill(long uniquePersonCode, String name, String description, Date makingDate) {
+        this.uniquePersonCode = uniquePersonCode;
         this.name = name;
         this.description = description;
         this.makingDate = makingDate;
@@ -47,12 +47,12 @@ public class Bill implements Serializable {
         this.id = id;
     }
 
-    public long getDeputyId() {
-        return deputyId;
+    public long getUniquePersonCode() {
+        return uniquePersonCode;
     }
 
-    public void setDeputyId(Integer deputyId) {
-        this.deputyId = deputyId;
+    public void setUniquePersonCode(long deputyId) {
+        this.uniquePersonCode = deputyId;
     }
 
     public String getName() {

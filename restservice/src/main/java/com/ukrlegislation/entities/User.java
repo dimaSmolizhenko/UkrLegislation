@@ -1,9 +1,6 @@
 package com.ukrlegislation.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -28,12 +25,14 @@ public class User implements Serializable {
     @Column(name = "register_date")
     private Date registrationDate;
 
-    private String role;
+    @OneToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     public User(){
     }
 
-    public User(String login, String password, String fullName, Date registrationDate, String role) {
+    public User(String login, String password, String fullName, Date registrationDate, Role role) {
         this.login = login;
         this.password = password;
         this.fullName = fullName;
@@ -81,11 +80,11 @@ public class User implements Serializable {
         this.registrationDate = registrationDate;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

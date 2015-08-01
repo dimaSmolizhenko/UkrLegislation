@@ -32,6 +32,9 @@ public class Deputy implements Serializable {
     @Column(name = "encluded_in")
     private String encludedIn;
 
+    @Column(name = "unique_person_code_id")
+    private long uniquePersonCode;
+
     public Deputy() {
 
     }
@@ -90,5 +93,13 @@ public class Deputy implements Serializable {
 
     public void setEncludedIn(String encludedIn) {
         this.encludedIn = encludedIn;
+    }
+
+    public long getUniquePersonCode() {
+        return uniquePersonCode;
+    }
+
+    public void setUniquePersonCode(long uniquePersonCode) {
+        this.uniquePersonCode = uniquePersonCode;
     }
 }

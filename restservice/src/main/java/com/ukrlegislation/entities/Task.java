@@ -1,10 +1,7 @@
 package com.ukrlegislation.entities;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,16 +15,18 @@ public class Task implements Serializable {
     @Id
     private long id;
 
-    @Column(name = "user_id")
-    private long userId;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private String description;
 
     @Column(name = "send_date")
     private Date sendDate;
 
-    @Column(name = "status_id")
-    private long statusId;
+    @OneToOne
+    @JoinColumn(name = "status_id")
+    private TaskStatus status;
 
     private int priority;
 
@@ -37,13 +36,21 @@ public class Task implements Serializable {
     public Task() {
     }
 
-    public Task(long userId, String description, Date sendDate, long statusId, int priority, long criteriaId) {
-        this.userId = userId;
+    public Task(User user, String description, Date sendDate, TaskStatus status, int priority, long criteriaId) {
+        this.user = user;
         this.description = description;
         this.sendDate = sendDate;
-        this.statusId = statusId;
+        this.status = status;
         this.priority = priority;
         this.criteriaId = criteriaId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public long getId() {
@@ -52,14 +59,6 @@ public class Task implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public String getDescription() {
@@ -78,12 +77,12 @@ public class Task implements Serializable {
         this.sendDate = sendDate;
     }
 
-    public long getStatusId() {
-        return statusId;
+    public TaskStatus getStatus() {
+        return status;
     }
 
-    public void setStatusId(Integer statusId) {
-        this.statusId = statusId;
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 
     public int getPriority() {
