@@ -1,5 +1,6 @@
 package com.ukrlegislation.repos;
 
+import com.ukrlegislation.entities.UniquePersonCode;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class DeputyTest {
 
     @Test
     public void test() {
-        System.out.println(deputyRepository.findByUniquePersonCode(1));
+        System.out.println(deputyRepository.findByUniquePersonCode(new UniquePersonCode(1)));
     }
 
     @After

@@ -1,5 +1,6 @@
 package com.ukrlegislation.repos;
 
+import com.ukrlegislation.entities.UniquePersonCode;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import java.util.Set;
  */
 public interface DeputyRepository extends CrudRepository<Deputy, Long> {
 
-    public Deputy findByUniquePersonCode(long uniquePersonCode);
+    public Deputy findByUniquePersonCode(UniquePersonCode value);
 
+    public Deputy findByUniquePersonCode(long value);
 }

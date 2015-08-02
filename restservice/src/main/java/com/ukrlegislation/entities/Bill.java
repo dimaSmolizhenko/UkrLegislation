@@ -1,10 +1,7 @@
 package com.ukrlegislation.entities;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,8 +15,9 @@ public class Bill implements Serializable {
     @Id
     private long id;
 
-    @Column(name = "unique_person_code_id")
-    private long uniquePersonCode;
+    @OneToOne
+    @JoinColumn(name = "unique_person_code_id")
+    private UniquePersonCode uniquePersonCode;
 
     private String name ;
 
@@ -29,10 +27,9 @@ public class Bill implements Serializable {
     private Date makingDate;
 
     public Bill() {
-
     }
 
-    public Bill(long uniquePersonCode, String name, String description, Date makingDate) {
+    public Bill(String name, UniquePersonCode uniquePersonCode, String description, Date makingDate) {
         this.uniquePersonCode = uniquePersonCode;
         this.name = name;
         this.description = description;
@@ -47,12 +44,12 @@ public class Bill implements Serializable {
         this.id = id;
     }
 
-    public long getUniquePersonCode() {
+    public UniquePersonCode getUniquePersonCode() {
         return uniquePersonCode;
     }
 
-    public void setUniquePersonCode(long deputyId) {
-        this.uniquePersonCode = deputyId;
+    public void setUniquePersonCode(UniquePersonCode uniquePersonCode) {
+        this.uniquePersonCode = uniquePersonCode;
     }
 
     public String getName() {
