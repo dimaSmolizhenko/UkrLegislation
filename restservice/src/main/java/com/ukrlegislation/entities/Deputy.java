@@ -102,4 +102,16 @@ public class Deputy implements Serializable {
     public void setUniquePersonCode(long uniquePersonCode) {
         this.uniquePersonCode = uniquePersonCode;
     }
+
+    @Override
+    public String toString() {
+        return "Deputy{" +
+                "fullName='" + fullName + '\'' +
+                ", politGroup='" + politGroup + '\'' +
+                ", selectedBy='" + selectedBy + '\'' +
+                ", selectedDate=" + selectedDate +
+                ", encludedIn='" + encludedIn + '\'' +
+                ", uniquePersonCode=" + uniquePersonCode +
+                '}';
+    }
 }

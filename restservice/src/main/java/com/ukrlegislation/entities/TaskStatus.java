@@ -3,13 +3,14 @@ package com.ukrlegislation.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Created by ramax on 8/1/15.
  */
 @Entity
 @Table(name = "status")
-public class TaskStatus {
+public class TaskStatus implements Serializable{
 
     @Id
     private long id;
