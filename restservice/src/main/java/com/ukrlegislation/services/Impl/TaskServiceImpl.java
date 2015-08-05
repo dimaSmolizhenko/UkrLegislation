@@ -33,6 +33,10 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findOne(id);
     }
 
+    public void update(Task entity) {
+        taskRepository.save(entity);
+    }
+
     public void getByName(String name) {
         //TODO
     }

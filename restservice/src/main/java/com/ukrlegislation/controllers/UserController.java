@@ -11,35 +11,36 @@ import java.util.List;
  * Created by dima on 7/18/15.
  */
 @RestController
+@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/user/",method = RequestMethod.GET)
-    public List<User> getAllUsers() {
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public Iterable<User> getAllUsers() {
         return userService.getAll();
     }
 
-    @RequestMapping(value = "/user/{id}/",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/",method = RequestMethod.GET)
     public User getUserById(@PathVariable long id) {
         return userService.getById(id);
     }
 
-    @RequestMapping(value = "/user/",method = RequestMethod.POST)
-    public User addUser(@RequestBody User user) {
-        return user;
+    @RequestMapping(value = "/",method = RequestMethod.PUT)
+    public void addUser(@RequestBody User user) {
+        userService.add(user);
     }
 
-    @RequestMapping(value = "/user/{id}",method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}",method = RequestMethod.POST)
     public void updateUser(@PathVariable long id, @RequestBody User user) {
-        //TODO add apdate
+        user.setId(id);
+        userService.update(user);
     }
 
-    @RequestMapping(value = "/user/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable long id) {
         userService.delete(id);
     }
-
 
 }

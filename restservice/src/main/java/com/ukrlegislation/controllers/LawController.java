@@ -1,35 +1,47 @@
 package com.ukrlegislation.controllers;
 
+import com.ukrlegislation.entities.Law;
+import com.ukrlegislation.entities.User;
+import com.ukrlegislation.services.LawService;
+import com.ukrlegislation.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by dima on 7/18/15.
  */
-@Controller
+@RestController
+@RequestMapping(value = "/law")
 public class LawController {
 
+    @Autowired
+    LawService lawService;
 
-//    @Qualifier("lawRepository")
-//    @Autowired
-//    LawRepository lawRepository;
-//
-//
-//    @RequestMapping(value = "law/{name}", method = RequestMethod.GET)
-//    public void getLaw(@ModelAttribute("name") String name) throws IOException {
-//
-//        Parse parse = new Parse();
-//        try {
-//            String lawName = parse.parseBill(name);
-//            String  lawDescription = parse.parseDescriptionLaw();
-//            String lawText = parse.parseProjectLaw();
-//        }catch (IndexOutOfBoundsException ex){
-//
-////            System.out.println("Sorry, but information not found, check this information on http://w1.c1.rada.gov.ua");
-//
-//        }
-//
-//
-//    }
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public Iterable<Law> getAllLaw() {
+        return lawService.getAll();
+    }
 
+    @RequestMapping(value = "/{id}/",method = RequestMethod.GET)
+    public Law getLawById(@PathVariable long id) {
+        return lawService.getById(id);
+    }
+
+    @RequestMapping(value = "/",method = RequestMethod.PUT)
+    public void addLaw(@RequestBody Law law) {
+        lawService.add(law);
+    }
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.POST)
+    public void updateLaw(@PathVariable long id, @RequestBody Law law) {
+        law.setId(id);
+        lawService.update(law);
+    }
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    public void deleteLaw(@PathVariable long id) {
+        lawService.delete(id);
+    }
 
 }

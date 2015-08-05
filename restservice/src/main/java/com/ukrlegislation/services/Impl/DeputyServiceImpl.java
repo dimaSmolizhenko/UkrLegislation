@@ -33,6 +33,10 @@ public class DeputyServiceImpl implements DeputyService{
         return deputyRepository.findOne(id);
     }
 
+    public void update(Deputy entity) {
+        deputyRepository.save(entity);
+    }
+
     public void getByName(String name) {
         //TODO
     }

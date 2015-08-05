@@ -1,9 +1,6 @@
 package com.ukrlegislation.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,11 +12,11 @@ import java.util.Date;
 public class Law implements Serializable {
 
     @Id
-    @Column(name = "lawId")
-    private long lawId;
+    private long Id;
 
-    @Column(name = "deputy_id")
-    private long deputyId;
+    @OneToOne
+    @JoinColumn(name = "unique_person_code_id")
+    private UniquePersonCode uniquePersonCode;
 
     private String name;
 
@@ -27,32 +24,30 @@ public class Law implements Serializable {
 
     private Date approvalDate;
 
-
     public Law() {
-
     }
 
-    public Law(long deputyId, String name, String description, Date approvalDate) {
-        this.deputyId = deputyId;
+    public Law(String name, UniquePersonCode uniquePersonCode, String description, Date approvalDate) {
+        this.uniquePersonCode = uniquePersonCode;
         this.name = name;
         this.description = description;
         this.approvalDate = approvalDate;
     }
 
-    public long getLawId() {
-        return lawId;
+    public long getId() {
+        return Id;
     }
 
-    public void setLawId(long lawId) {
-        this.lawId = lawId;
+    public void setId(long id) {
+        this.Id = id;
     }
 
-    public long getDeputyId() {
-        return deputyId;
+    public UniquePersonCode getUniquePersonCode() {
+        return uniquePersonCode;
     }
 
-    public void setDeputyId(long deputyId) {
-        this.deputyId = deputyId;
+    public void setUniquePersonCode(UniquePersonCode uniquePersonCode) {
+        this.uniquePersonCode = uniquePersonCode;
     }
 
     public String getName() {

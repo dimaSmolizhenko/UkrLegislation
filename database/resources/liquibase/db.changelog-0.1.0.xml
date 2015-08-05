@@ -53,42 +53,46 @@
               PRIMARY KEY (id)
             );
 
+            CREATE TABLE unique_person_code(
+  				id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+			);
+
             CREATE TABLE law (
-              id BIGINT NOT NULL AUTO_INCREMENT,
-              deputy_id BIGINT NOT NULL,
-              name VARCHAR(50) NOT NULL,
-              description VARCHAR(200) NOT NULL,
-              approvalDate DATE NOT NULL,
-              PRIMARY KEY (id)
-            );
+  			  id BIGINT NOT NULL AUTO_INCREMENT,
+  			  unique_person_code_id BIGINT NOT NULL,
+			  name VARCHAR(50) NOT NULL,
+  			  description VARCHAR(200) NOT NULL,
+  			  approval_date DATE NOT NULL,
+  			  PRIMARY KEY (id)
+			);
 
             CREATE TABLE deputy (
-              id BIGINT NOT NULL AUTO_INCREMENT,
-              full_name VARCHAR(100) NOT NULL,
-              choose_by VARCHAR(100) NOT NULL,
-              deputy_date DATE NOT NULL,
-              groups VARCHAR(50) NOT NULL,
-              encluded_in VARCHAR(50) NOT NULL,
-              PRIMARY KEY (id)
-            );
-
+			  id BIGINT NOT NULL AUTO_INCREMENT,
+			  unique_person_code_id BIGINT,
+			  full_name VARCHAR(100) NOT NULL,
+			  choose_by VARCHAR(100) NOT NULL,
+			  deputy_date DATE NOT NULL,
+			  groups VARCHAR(50) NOT NULL,
+			  encluded_in VARCHAR(50) NOT NULL,
+			  PRIMARY KEY (id)
+			);
 
             CREATE TABLE bill (
-              id BIGINT NOT NULL AUTO_INCREMENT,
-              deputy_id BIGINT NOT NULL,
-              name VARCHAR(40) NOT NULL,
-              description VARCHAR(200) NOT NULL,
-              making_date DATE NOT NULL,
-              PRIMARY KEY (id)
-            );
+			  id BIGINT NOT NULL AUTO_INCREMENT,
+			  unique_person_code_id BIGINT NOT NULL,
+			  name VARCHAR(40) NOT NULL,
+			  description VARCHAR(200) NOT NULL,
+			  making_date DATE NOT NULL,
+			  PRIMARY KEY (id)
+			);
 
             CREATE TABLE relation (
-              id BIGINT NOT NULL AUTO_INCREMENT,
-              deputy_id1 BIGINT NOT NULL,
-              deputy_id2 BIGINT NOT NULL,
-              name_id BIGINT NOT NULL,
-              PRIMARY KEY (id)
-            );
+			  id BIGINT NOT NULL AUTO_INCREMENT,
+			  unique_person_code_id1 BIGINT NOT NULL,
+			  unique_person_code_id2 BIGINT NOT NULL,
+			  name_id BIGINT NOT NULL,
+			  PRIMARY KEY (id)
+			);
 
             CREATE TABLE relation_name (
               id BIGINT NOT NULL AUTO_INCREMENT,
@@ -125,15 +129,17 @@
 
             ALTER TABLE task ADD CONSTRAINT task_fk2 FOREIGN KEY (criteria_id) REFERENCES search_criteria(id);
 
-            ALTER TABLE law ADD CONSTRAINT law_fk0 FOREIGN KEY (deputy_id) REFERENCES deputy(id);
+        	ALTER TABLE law ADD CONSTRAINT law_fk0 FOREIGN KEY (unique_person_code_id) REFERENCES unique_person_code(id);
 
-            ALTER TABLE bill ADD CONSTRAINT bill_fk0 FOREIGN KEY (deputy_id) REFERENCES deputy(id);
+			ALTER TABLE bill ADD CONSTRAINT bill_fk0 FOREIGN KEY (unique_person_code_id) REFERENCES unique_person_code(id);
 
-            ALTER TABLE relation ADD CONSTRAINT relation_fk0 FOREIGN KEY (deputy_id1) REFERENCES deputy(id);
+			ALTER TABLE relation ADD CONSTRAINT relation_fk0 FOREIGN KEY (unique_person_code_id1) REFERENCES unique_person_code(id);
 
-            ALTER TABLE relation ADD CONSTRAINT relation_fk1 FOREIGN KEY (deputy_id2) REFERENCES deputy(id);
+			ALTER TABLE relation ADD CONSTRAINT relation_fk1 FOREIGN KEY (unique_person_code_id2) REFERENCES unique_person_code(id);
 
-            ALTER TABLE relation ADD CONSTRAINT relation_fk2 FOREIGN KEY (name_id) REFERENCES relation_name(id);
+			ALTER TABLE relation ADD CONSTRAINT relation_fk2 FOREIGN KEY (name_id) REFERENCES relation_name(id);
+
+			ALTER TABLE deputy ADD CONSTRAINT deputy_fk0 FOREIGN KEY (unique_person_code_id) REFERENCES  unique_person_code (id);
         </sql>
         <rollback>
             ALTER TABLE like_me DROP FOREIGN KEY like_me_fk0;
@@ -157,6 +163,8 @@
             ALTER TABLE relation DROP FOREIGN KEY relation_fk1;
 
             ALTER TABLE relation DROP FOREIGN KEY relation_fk2;
+
+            ALTER TABLE deputy DROP FOREIGN KEY deputy_fk0;
         </rollback>
     </changeSet>
 

@@ -1,9 +1,6 @@
 package com.ukrlegislation.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -32,8 +29,11 @@ public class Deputy implements Serializable {
     @Column(name = "encluded_in")
     private String encludedIn;
 
-    public Deputy() {
+    @OneToOne
+    @JoinColumn(name = "unique_person_code_id")
+    private UniquePersonCode uniquePersonCode;
 
+    public Deputy() {
     }
 
     public Deputy(String fullName, String politGroup, String selectedBy, Date selectedDate, String encludedIn) {
@@ -90,5 +90,25 @@ public class Deputy implements Serializable {
 
     public void setEncludedIn(String encludedIn) {
         this.encludedIn = encludedIn;
+    }
+
+    public UniquePersonCode getUniquePersonCode() {
+        return uniquePersonCode;
+    }
+
+    public void setUniquePersonCode(UniquePersonCode uniquePersonCode) {
+        this.uniquePersonCode = uniquePersonCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Deputy{" +
+                "fullName='" + fullName + '\'' +
+                ", politGroup='" + politGroup + '\'' +
+                ", selectedBy='" + selectedBy + '\'' +
+                ", selectedDate=" + selectedDate +
+                ", encludedIn='" + encludedIn + '\'' +
+                ", uniquePersonCode=" + uniquePersonCode +
+                '}';
     }
 }

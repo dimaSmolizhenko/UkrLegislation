@@ -32,4 +32,8 @@ public class CommentServiceImpl implements CommentService{
     public Comment getById(Long id) {
         return commentRepository.findOne(id);
     }
+
+    public void update(Comment entity) {
+        commentRepository.save(entity);
+    }
 }
