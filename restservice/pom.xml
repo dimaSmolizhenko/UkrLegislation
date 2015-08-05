@@ -110,7 +110,7 @@
     </dependencies>
 
     <build>
-        <finalName>SpringMVC</finalName>
+        <finalName>restservice</finalName>
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
