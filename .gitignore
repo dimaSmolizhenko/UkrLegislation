@@ -10,6 +10,8 @@ gen/
 *.ipr
 *.iws
 .idea/
+
+restservice/src/main/resources/config/jdbc.properties
  
 build/
 bin/
