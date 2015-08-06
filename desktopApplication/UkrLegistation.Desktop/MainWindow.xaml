@@ -1,0 +1,76 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="UkrLegistation.Desktop.MainWindow"
+        Title="Вхід" Height="460.395" Width="723.684"
+        MinHeight="450px" MinWidth="300px">
+    <Window.Resources>
+        <Style x:Key="TextBox1" TargetType="{x:Type TextBox}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                        <Border 
+        					x:Name="Border"
+        					BorderBrush="White"
+        					CornerRadius="7" 
+        					Background="White"
+        					Padding="2"
+        					BorderThickness="1" >
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="0,0,-8,-4">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Images/Authorization/Background.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Style="{StaticResource TextBox1}" x:Name="LoginBox" FontSize="25" HorizontalAlignment="Center"  Height="40" Margin="0,-180,0,0" TextWrapping="Wrap"  VerticalAlignment="Center" Width="277" Grid.Column="2" RenderTransformOrigin="0.502,0.5"/>
+        <TextBox Style="{StaticResource TextBox1}" x:Name="PasswordBox" FontSize="25" HorizontalAlignment="Center" Height="40" Margin="0,30,0,0" TextWrapping="Wrap"  VerticalAlignment="Center" Width="277" Grid.Column="2" RenderTransformOrigin="0.505,0.7"/>
+        <Button x:Name="btn_Auth" Content="Вхід" HorizontalAlignment="Center" Margin="0,280,0,106" VerticalAlignment="Center" Width="124" RenderTransformOrigin="-0.641,-0.13" Click="Button_Click" Grid.Column="2" Foreground="Black" Cursor="Arrow" Height="30"  >
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#9ab3cd"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF7D95AE"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="LightBlue"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Label Content="Логін" HorizontalAlignment="Center" Margin="0,-280,0,0" VerticalAlignment="Center" RenderTransformOrigin="-0.273,0.118" Grid.Column="2" Height="26" Width="40"/>
+        <Label Content="Пароль" HorizontalAlignment="Center" Margin="0,-65,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.554,0.238" Grid.Column="2" Height="26" Width="51"/>
+    </Grid>
+</Window>
