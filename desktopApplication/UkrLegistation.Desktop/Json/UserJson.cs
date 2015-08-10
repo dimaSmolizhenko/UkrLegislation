@@ -3,10 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Threading.Tasks;
 using UkrLegistation.Desktop.Model;
 using Newtonsoft.Json;
+using System.Net.Http.Formatting;
+using System.Windows.Media.Media3D;
 
 namespace UkrLegistation.Desktop.Json
 {
@@ -48,6 +54,7 @@ namespace UkrLegistation.Desktop.Json
             var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
+            
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
@@ -58,6 +65,41 @@ namespace UkrLegistation.Desktop.Json
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
+            }
+        }
+
+        public static async Task PostAsync(User user)
+        {
+            using (var client = new HttpClient())
+            {
+                //client.BaseAddress = new Uri("http://ukrlegislation-itevent.rhcloud.com/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                
+                User user1 = new User()
+                {
+                    id = 1,
+                    login = "aaa",
+                    password = "aaa",
+                    fullName = "aaa",
+                    registrationDate = 121212120000,
+                    role = new Role()
+                    {
+                        name = "admin",
+                        id = 100
+                    }
+                };                
+                HttpResponseMessage response = await client.PostAsJsonAsync("http://ukrlegislation-itevent.rhcloud.com/restserver/user/",user1);
+                var a = 3;
+                if (response.IsSuccessStatusCode)
+                {
+                    Uri userUrl = response.Headers.Location;
+                    //User user1 = await response.Content.ReadAsAsync<User>();
+
+                    //user.fullName = "Dima";
+                    //response = await client.PutAsJsonAsync(userUrl, user);
+                }
             }
         }
     }

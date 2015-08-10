@@ -20,18 +20,26 @@ namespace UkrLegistation.Desktop
             btn_Get.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var lastUser = users.Last();
+            Role roleNew = new Role()
+            {
+
+                name = RoleBox.Text,
+                id = RoleBox.SelectedIndex
+                
+            };
             User user = new User()
             {
+                id = lastUser.id + 1,
                 login = LoginBox.Text,
                 password = PasswordBox.Text,
                 fullName = FullNameBox.Text,
                 registrationDate = 121212120000,
-                role = RoleBox.Text
+                role = roleNew
             };
-            UserJson.PostData(user, lastUser.id + 1);
+            await UserJson.PostAsync(user);
             MessageBox.Show("Successfully added");
         }
 
