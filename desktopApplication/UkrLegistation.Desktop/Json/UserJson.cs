@@ -20,6 +20,8 @@ namespace UkrLegistation.Desktop.Json
     public static class UserJson
     {
         private static List<User> UserData = new List<User>();
+        private const string userName = "user";
+        private const string password = "pass";
         private static bool _flag;
         #region GetAsyncData
         public static void GetData(out List<User> users, out bool flagNew)
@@ -60,26 +62,7 @@ namespace UkrLegistation.Desktop.Json
             }
         }
         #endregion
-        public static void PostData(User user, int id)
-        {
-            var url = "http://ukrlegislation-itevent.rhcloud.com/restserver/user/" + id + "/";
-            var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                string json = JsonConvert.SerializeObject(user);
-                streamWriter.Write(json);
-            }
-            var response = (HttpWebResponse) httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(response.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-            }
-        }
-
+        #region PostAsyncData
         public static async Task PostAsync(User user, int id)
         {
 
@@ -88,8 +71,6 @@ namespace UkrLegistation.Desktop.Json
 
             using (var httpClient = new HttpClient())
             {
-                var userName = "user";
-                var password = "pass";
 
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                     "Basic",
@@ -107,6 +88,30 @@ namespace UkrLegistation.Desktop.Json
                 //Complete
             }
         }
+        #endregion
+        
+        #region DeleteAsyncData
+        public static async Task DeleteAsync(int id)
+        {
+
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                    "Basic",
+                    Convert.ToBase64String(
+                        Encoding.ASCII.GetBytes(
+                            string.Format("{0}:{1}", userName, password))));
+
+                var httpResponse =
+                    await
+                        httpClient.DeleteAsync("http://ukrlegislation-itevent.rhcloud.com/restserver/user/" + id + "/");
+                if (httpResponse.Content != null)
+                {
+                    var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                }
+            }
+        }
+        #endregion
     }
 
 }
