@@ -17,24 +17,10 @@
             <ComboBox.BindingGroup>
                 <BindingGroup/>
             </ComboBox.BindingGroup>
-            <ComboBoxItem>admin</ComboBoxItem>
-            <ComboBoxItem>user</ComboBoxItem>
+            <ComboBoxItem>ROLE_GUEST</ComboBoxItem>
+            <ComboBoxItem>ROLE_ADMIN</ComboBoxItem>
         </ComboBox>
         <Button Content="Button" Name="btn_Get" HorizontalAlignment="Left" Margin="73,21,0,0" VerticalAlignment="Top" Width="75" Click="btn_Get_Click"/>
-        <DockPanel HorizontalAlignment="Left" Height="100" LastChildFill="False" Margin="48,217,0,0" VerticalAlignment="Top" Width="400">
-            <TabControl Height="100" VerticalAlignment="Center" Width="400">
-                <TabItem Header="Користувач" Margin="0,0,-4,-3">
-                    <Grid Background="#FFE5E5E5" Margin="0,-3,0,3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="171*"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Заявка">
-                    <Grid Background="Aquamarine"/>
-                </TabItem>
-            </TabControl>
-        </DockPanel>
 
     </Grid>
 </Window>
