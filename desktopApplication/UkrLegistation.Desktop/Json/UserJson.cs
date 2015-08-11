@@ -104,6 +104,7 @@ namespace UkrLegistation.Desktop.Json
                 {
                     var responseContent = await httpResponse.Content.ReadAsStringAsync();
                 }
+                //Complete
             }
         }
     }
