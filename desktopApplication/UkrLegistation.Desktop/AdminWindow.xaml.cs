@@ -24,7 +24,7 @@ namespace UkrLegistation.Desktop
             var lastUser = users.Last();
             User user = new User()
             {
-                id = lastUser.id + 1,
+                id = lastUser.id,
                 login = LoginBox.Text,
                 password = PasswordBox.Text,
                 fullName = FullNameBox.Text,
