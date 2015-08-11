@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,18 +19,25 @@ namespace UkrLegistation.Desktop
             btn_Get.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var lastUser = users.Last();
             User user = new User()
             {
+                id = lastUser.id + 1,
                 login = LoginBox.Text,
                 password = PasswordBox.Text,
                 fullName = FullNameBox.Text,
                 registrationDate = 121212120000,
-                role = RoleBox.Text
+                role = new Role()
+                {
+                    name = RoleBox.Text,
+                    id = RoleBox.SelectedIndex
+                }
             };
-            UserJson.PostData(user, lastUser.id + 1);
+
+            await UserJson.PostAsync(user, user.id);
+                        
             MessageBox.Show("Successfully added");
         }
 

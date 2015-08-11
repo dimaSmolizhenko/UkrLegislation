@@ -4,6 +4,14 @@
 namespace UkrLegistation.Desktop.Model
 {
     [DataContract]
+    public class Role
+    {
+        [DataMember]
+        public int id { get; set; }
+        [DataMember]
+        public string name { get; set; }
+    }
+    [DataContract]
     public class User
     {
         [DataMember]
@@ -17,6 +25,6 @@ namespace UkrLegistation.Desktop.Model
         [DataMember]
         public long registrationDate { get; set; }
         [DataMember]
-        public string role { get; set; }
+        public Role role { get; set; }
     }
 }
