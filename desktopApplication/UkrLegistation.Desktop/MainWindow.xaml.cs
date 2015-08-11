@@ -29,7 +29,7 @@ namespace UkrLegistation.Desktop
 
             foreach (var user in users)
             {
-                if (LoginBox.Text == user.login && PasswordBox.Text == user.password && user.role.name == "admin")
+                if (LoginBox.Text == user.login && PasswordBox.Text == user.password && user.role.name == "ROLE_GUEST")
                 {
                     AdminWindow admin = new AdminWindow();
                     admin.Show();

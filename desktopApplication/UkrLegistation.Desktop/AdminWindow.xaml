@@ -17,8 +17,8 @@
             <ComboBox.BindingGroup>
                 <BindingGroup/>
             </ComboBox.BindingGroup>
-            <ComboBoxItem>admin</ComboBoxItem>
-            <ComboBoxItem>user</ComboBoxItem>
+            <ComboBoxItem>ROLE_GUEST</ComboBoxItem>
+            <ComboBoxItem>ROLE_ADMIN</ComboBoxItem>
         </ComboBox>
         <Button Content="Button" Name="btn_Get" HorizontalAlignment="Left" Margin="73,21,0,0" VerticalAlignment="Top" Width="75" Click="btn_Get_Click"/>
 
