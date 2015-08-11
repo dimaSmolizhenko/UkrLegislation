@@ -32,3 +32,6 @@ D:\Projects\UkrLegistation.Desktop\UkrLegistation.Desktop\obj\Debug\AdminWindow.
 D:\Projects\UkrLegistation.Desktop\UkrLegistation.Desktop\obj\Debug\ErrorAuthorization.g.cs
 D:\Projects\UkrLegistation.Desktop\UkrLegistation.Desktop\bin\Debug\Newtonsoft.Json.dll
 D:\Projects\UkrLegistation.Desktop\UkrLegistation.Desktop\bin\Debug\Newtonsoft.Json.xml
+D:\Projects\UkrLegislation\desktopApplication\UkrLegistation.Desktop\bin\Debug\UkrLegistation.Desktop.exe.config
+D:\Projects\UkrLegislation\desktopApplication\UkrLegistation.Desktop\obj\Debug\UkrLegistation.Desktop.exe
+D:\Projects\UkrLegislation\desktopApplication\UkrLegistation.Desktop\obj\Debug\UkrLegistation.Desktop.pdb
