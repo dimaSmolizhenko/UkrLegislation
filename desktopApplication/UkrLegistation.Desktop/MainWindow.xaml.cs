@@ -25,7 +25,12 @@ namespace UkrLegistation.Desktop
         {
             var users = new List<User>();
             bool flag;
-            UserJson.GetData(out users, out flag);
+            var url = "http://ukrlegislation-itevent.rhcloud.com/restserver/user/";
+            UserJson.GetData(out users, out flag, url);
+            var _roles = new List<Role>();
+            url = "http://ukrlegislation-itevent.rhcloud.com/restserver/role/";
+            RoleJson.GetData(out _roles, url);
+
 
             foreach (var user in users)
             {

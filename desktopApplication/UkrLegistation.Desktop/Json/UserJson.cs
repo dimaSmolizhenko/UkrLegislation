@@ -5,43 +5,33 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using UkrLegistation.Desktop.Model;
 using Newtonsoft.Json;
-using System.Net.Http.Formatting;
-using System.Windows.Controls;
-using System.Windows.Media.Media3D;
 
 namespace UkrLegistation.Desktop.Json
 {
     public static class UserJson
     {
-        private static List<User> UserData = new List<User>();
-        private const string userName = "user";
-        private const string password = "pass";
+        private static List<User> _userData = new List<User>();
+        private const string UserName = "user";
+        private const string Password = "pass";
         private static bool _flag;
         #region GetAsyncData
-        public static void GetData(out List<User> users, out bool flagNew)
+        public static void GetData(out List<User> users, out bool flagNew, string url)
         {
-            var url = "http://ukrlegislation-itevent.rhcloud.com/restserver/user/";
-            var userName = "user";
-            var password = "pass";
-
             var credentials = Convert.ToBase64String(
-                Encoding.ASCII.GetBytes(userName + ":" + password));
-
+                Encoding.ASCII.GetBytes(UserName + ":" + Password));
 
             var asyncClient = new WebClient();
-
             asyncClient.Headers[HttpRequestHeader.Authorization] = string.Format("Basic {0}", credentials);
 
             asyncClient.DownloadStringCompleted += asyncClient_DownloadStringComleted;
             asyncClient.DownloadStringAsync(new Uri(url));
             flagNew = _flag;
-            users = UserData;
+            users = _userData;
         }
 
         private static void asyncClient_DownloadStringComleted(object sender, DownloadStringCompletedEventArgs e)
@@ -51,7 +41,7 @@ namespace UkrLegistation.Desktop.Json
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof (List<User>));
                 using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(e.Result)))
                 {
-                    UserData = (List<User>) serializer.ReadObject(ms);
+                    _userData = (List<User>) serializer.ReadObject(ms);
                 }
             }
             catch
@@ -76,16 +66,15 @@ namespace UkrLegistation.Desktop.Json
                     "Basic",
                     Convert.ToBase64String(
                         Encoding.ASCII.GetBytes(
-                            string.Format("{0}:{1}", userName, password))));
+                            string.Format("{0}:{1}", UserName, Password))));
 
                 var httpResponse =
                     await
-                        httpClient.PostAsync("http://ukrlegislation-itevent.rhcloud.com/restserver/user/"+id+"/", httpContent);
+                        httpClient.PostAsync("http://ukrlegislation-itevent.rhcloud.com/restserver/user/" + id + "/", httpContent);
                 if (httpResponse.Content != null)
                 {
-                    var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                    await httpResponse.Content.ReadAsStringAsync();
                 }
-                //Complete
             }
         }
         #endregion
@@ -100,14 +89,14 @@ namespace UkrLegistation.Desktop.Json
                     "Basic",
                     Convert.ToBase64String(
                         Encoding.ASCII.GetBytes(
-                            string.Format("{0}:{1}", userName, password))));
+                            string.Format("{0}:{1}", UserName, Password))));
 
                 var httpResponse =
                     await
                         httpClient.DeleteAsync("http://ukrlegislation-itevent.rhcloud.com/restserver/user/" + id + "/");
                 if (httpResponse.Content != null)
                 {
-                    var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                    await httpResponse.Content.ReadAsStringAsync();
                 }
             }
         }
