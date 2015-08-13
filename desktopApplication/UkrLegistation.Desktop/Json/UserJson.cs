@@ -1,7 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -19,7 +19,9 @@ namespace UkrLegistation.Desktop.Json
         private const string UserName = "user";
         private const string Password = "pass";
         private static bool _flag;
+
         #region GetAsyncData
+
         public static void GetData(out List<User> users, out bool flagNew, string url)
         {
             var credentials = Convert.ToBase64String(
@@ -51,9 +53,12 @@ namespace UkrLegistation.Desktop.Json
                 _flag = true;
             }
         }
+
         #endregion
+
         #region PostAsyncData
-        public static async Task PostAsync(User user, int id)
+
+        public static async Task PostAsync(object user, int id, string url)
         {
 
             var stringUser = await Task.Run(() => JsonConvert.SerializeObject(user));
@@ -70,17 +75,19 @@ namespace UkrLegistation.Desktop.Json
 
                 var httpResponse =
                     await
-                        httpClient.PostAsync("http://ukrlegislation-itevent.rhcloud.com/restserver/user/" + id + "/", httpContent);
+                        httpClient.PostAsync(url + id + "/", httpContent);
                 if (httpResponse.Content != null)
                 {
                     await httpResponse.Content.ReadAsStringAsync();
                 }
             }
         }
+
         #endregion
-        
+
         #region DeleteAsyncData
-        public static async Task DeleteAsync(int id)
+
+        public static async Task DeleteAsync(int id, string url)
         {
 
             using (var httpClient = new HttpClient())
@@ -93,15 +100,19 @@ namespace UkrLegistation.Desktop.Json
 
                 var httpResponse =
                     await
-                        httpClient.DeleteAsync("http://ukrlegislation-itevent.rhcloud.com/restserver/user/" + id + "/");
+                        httpClient.DeleteAsync(url + id + "/");
                 if (httpResponse.Content != null)
                 {
                     await httpResponse.Content.ReadAsStringAsync();
                 }
             }
         }
-        #endregion
-    }
 
+        #endregion
+
+        
+    }
 }
+
+
 
