@@ -13,11 +13,7 @@
         <Label Content="Full Name&#xD;&#xA;" HorizontalAlignment="Left" Margin="179,161,0,0" VerticalAlignment="Top"/>
         <Label x:Name="RegistrationDateBox" Content="Registration date" HorizontalAlignment="Left" Margin="179,189,0,0" VerticalAlignment="Top"/>
         <Label Content="Role" HorizontalAlignment="Left" Margin="179,217,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="RoleBox" HorizontalAlignment="Left" Margin="287,221,0,0" VerticalAlignment="Top" Width="120">
-            <ComboBox.BindingGroup>
-                <BindingGroup/>
-            </ComboBox.BindingGroup>
-        </ComboBox>
+        <ComboBox x:Name="RoleBox" HorizontalAlignment="Left" Margin="287,221,0,0" VerticalAlignment="Top" Width="120" DisplayMemberPath="name" SelectedValuePath="id"/>
         <Button Content="Button" Name="btn_Get" HorizontalAlignment="Left" Margin="73,21,0,0" VerticalAlignment="Top" Width="75" Click="btn_Get_Click"/>
 
     </Grid>
