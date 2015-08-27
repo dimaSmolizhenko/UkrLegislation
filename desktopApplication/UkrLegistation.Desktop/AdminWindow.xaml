@@ -26,8 +26,24 @@
                     <Button Content="Редагувати" HorizontalAlignment="Left" Margin="656,327,0,0" VerticalAlignment="Top" Width="76" Height="28" Click="Button_Click_2"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Role">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Legislator">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="181*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="dataGridRole" HorizontalAlignment="Left"  Margin="10,10,0,0" Loaded="DataGridLegislator_Load" VerticalAlignment="Top" Height="auto" Width="auto" Grid.Column="1"/>
+                    <Label Content="Id(For delete and put)" HorizontalAlignment="Left" Margin="539,121,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="125"/>
+                    <Label Content="Name" HorizontalAlignment="Left" Margin="539,152,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="42"/>
+                    <TextBox Name="IdTextBox" HorizontalAlignment="Left" Height="22" Margin="677,125,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                    <TextBox Name="NameTextBox" HorizontalAlignment="Left" Height="22" Margin="677,152,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                    <Button Content="Додати" HorizontalAlignment="Left" Margin="589,290,0,0" VerticalAlignment="Top" Width="75" Click="PostLegislator" Grid.Column="1" Height="22"/>
+                    <Button Content="Редагувати" HorizontalAlignment="Left" Margin="677,317,0,0" VerticalAlignment="Top" Width="75" Click="PutLegislator" Grid.Column="1" Height="22"/>
+                    <Button Content="Видалити" HorizontalAlignment="Left" Margin="755,290,0,0" VerticalAlignment="Top" Width="74" Click="DeleteLegislator" Grid.Column="1" Height="22"/>
+                    <TextBox x:Name="GroupBox" HorizontalAlignment="Left" Height="22" Margin="677,179,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                    <Label Content="Group" HorizontalAlignment="Left" Margin="539,179,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="43"/>
+
+                </Grid>
             </TabItem>
             <TabItem Header="Dep">
                 <Grid Background="#FFE5E5E5"/>
