@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using UkrLegistation.Desktop.Json;
 using UkrLegistation.Desktop.Model;
 
@@ -12,42 +9,48 @@ namespace UkrLegistation.Desktop
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : Window
+    public partial class MainWindow 
     {
+
+        private const string UrlUser = "user/";
+
         public MainWindow()
         {
             InitializeComponent();
-            btn_Auth.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            var users = new List<User>();
-            bool flag;
-            var url = "http://ukrlegislation-itevent.rhcloud.com/restserver/user/";
-            UserJson.GetData(out users, out flag, url);
-            var _roles = new List<Role>();
-            url = "http://ukrlegislation-itevent.rhcloud.com/restserver/role/";
-            RoleJson.GetData(out _roles, url);
-
-
+            var flag = false;
+            var users = await UserJson.Get<User>(UrlUser);
+            if (users == null)
+            {
+                var wind = new Window1();
+                wind.Show();
+            }
+            else
             foreach (var user in users)
             {
-                if (LoginBox.Text == user.login && PasswordBox.Text == user.password && user.role.name == "ROLE_GUEST")
+                flag = false;
+                if (LoginBox.Text == user.login && PasswordBox.Text == user.password &&
+                    user.role.name == "ROLE_ADMIN")
                 {
-                    AdminWindow admin = new AdminWindow();
+                    var admin = new AdminWindow();
                     admin.Show();
                     Close();
                     break;
                 }
                 else
                 {
-                    if (flag) break;
-                    ErrorAuthorization authErr = new ErrorAuthorization();
-                    authErr.Show();
-                    break;
+                    flag = true;
                 }
+            }
+            if (flag)
+            {
+                var authErr = new ErrorAuthorization();
+                authErr.Show();
             }
         }
     }

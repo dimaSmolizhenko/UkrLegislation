@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using UkrLegistation.Desktop.Json;
 using UkrLegistation.Desktop.Model;
 namespace UkrLegistation.Desktop
@@ -10,25 +8,23 @@ namespace UkrLegistation.Desktop
     /// <summary>
     /// Interaction logic for AdminWindow.xaml
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class AdminWindow 
     {
-        private List<User> _users = new List<User>();
-        private List<Role> _roles = new List<Role>(); 
-        private bool _flag;
+        private const string UrlUser = "user/";
+        private const string UrlRole = "role/";
         public AdminWindow()
         {
             InitializeComponent();
-            btn_Get.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            RoleBox.ItemsSource = _roles;
+            
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            var users = await UserJson.Get<User>(UrlUser);
             
-            var lastUser = _users.Last();
-            User user = new User()
+            var user = new User()
             {
-                id = lastUser.id,
+                id = users.Last().id + 1,
                 login = LoginBox.Text,
                 password = PasswordBox.Text,
                 fullName = FullNameBox.Text,
@@ -39,21 +35,14 @@ namespace UkrLegistation.Desktop
                     id = RoleBox.SelectedIndex + 1
                 }
             };
-            await UserJson.PostAsync(user, user.id);
-            MessageBox.Show("Successfully added");
+            await UserJson.PostAsync(user, user.id, UrlUser);
+            DataGrid_Load(new object(), new RoutedEventArgs());
         }
 
-        private void btn_Get_Click(object sender, RoutedEventArgs e)
-        {
-            var url = "http://ukrlegislation-itevent.rhcloud.com/restserver/user/";
-            UserJson.GetData(out _users, out _flag, url);
-            url = "http://ukrlegislation-itevent.rhcloud.com/restserver/role/";
-            RoleJson.GetData(out _roles, url);
-        }
         private static long ToUnixTimeNow()
         {
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
-            long secondsSinceEpoch = (long)t.TotalSeconds;
+            var secondsSinceEpoch = (long)t.TotalSeconds;
             var eposhMs = secondsSinceEpoch * 1000;
             var ms = 3600000 * 7;
             return eposhMs + ms;
@@ -66,6 +55,44 @@ namespace UkrLegistation.Desktop
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             DateTime date = start.AddMilliseconds(time);
             return date;
+        }
+
+        
+
+        private async void DataGrid_Load(object sender, RoutedEventArgs e)
+        {
+            var users = await UserJson.Get<User>(UrlUser);
+            dataGrid.ItemsSource = users;
+        }
+        private async void Tab_Load(object sender, RoutedEventArgs e)
+        {
+            var roles = await UserJson.Get<Role>(UrlRole);
+            RoleBox.ItemsSource = roles;
+        }
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            await UserJson.DeleteAsync(Convert.ToInt32(IdBox.Text), UrlUser);
+            DataGrid_Load(new object(), new RoutedEventArgs());
+        }
+
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var user = new User()
+            {
+                id = Convert.ToInt32(IdBox.Text),
+                login = LoginBox.Text,
+                password = PasswordBox.Text,
+                fullName = FullNameBox.Text,
+                registrationDate = ToUnixTimeNow(),
+                role = new Role()
+                {
+                    name = RoleBox.Text,
+                    id = RoleBox.SelectedIndex + 1
+                }
+            };
+            await UserJson.PostAsync(user, user.id, UrlUser);
+            DataGrid_Load(new object(), new RoutedEventArgs());
         }
     }
 }

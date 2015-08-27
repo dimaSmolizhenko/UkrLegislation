@@ -1,71 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
-using UkrLegistation.Desktop.Model;
 using Newtonsoft.Json;
+using RestSharp;
+using RestSharp.Authenticators;
+using RestSharp.Deserializers;
 
 namespace UkrLegistation.Desktop.Json
 {
     public static class UserJson
     {
-        private static List<User> _userData = new List<User>();
         private const string UserName = "user";
         private const string Password = "pass";
-        private static bool _flag;
 
         #region GetAsyncData
-
-        public static void GetData(out List<User> users, out bool flagNew, string url)
+        
+        public static async Task<List<T>> Get<T>(string url)
         {
-            var credentials = Convert.ToBase64String(
-                Encoding.ASCII.GetBytes(UserName + ":" + Password));
-
-            var asyncClient = new WebClient();
-            asyncClient.Headers[HttpRequestHeader.Authorization] = string.Format("Basic {0}", credentials);
-
-            asyncClient.DownloadStringCompleted += asyncClient_DownloadStringComleted;
-            asyncClient.DownloadStringAsync(new Uri(url));
-            flagNew = _flag;
-            users = _userData;
-        }
-
-        private static void asyncClient_DownloadStringComleted(object sender, DownloadStringCompletedEventArgs e)
-        {
+            var obj = new List<T>();
             try
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof (List<User>));
-                using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(e.Result)))
-                {
-                    _userData = (List<User>) serializer.ReadObject(ms);
-                }
+                var client = new RestClient("http://ukrlegislation-itevent.rhcloud.com/restserver/");
+                client.Authenticator = new HttpBasicAuthenticator(UserName, Password);
+                var request = new RestRequest(url, Method.GET);
+                request.RequestFormat = DataFormat.Json;
+                var response = await client.ExecuteTaskAsync(request);
+                var des = new JsonDeserializer();
+                obj = des.Deserialize<List<T>>(response);
             }
             catch
             {
-                Window1 wind = new Window1();
+                var wind = new Window1();
                 wind.Show();
-                _flag = true;
             }
+            return obj;
         }
 
         #endregion
 
         #region PostAsyncData
 
-        public static async Task PostAsync(object user, int id, string url)
+        public static async Task PostAsync(object obj, int id, string url)
         {
 
-            var stringUser = await Task.Run(() => JsonConvert.SerializeObject(user));
+            var stringUser = await Task.Run(() => JsonConvert.SerializeObject(obj));
             var httpContent = new StringContent(stringUser, Encoding.UTF8, "application/json");
 
             using (var httpClient = new HttpClient())
             {
+                httpClient.BaseAddress = new Uri("http://ukrlegislation-itevent.rhcloud.com/restserver/");
 
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                     "Basic",
@@ -92,6 +78,7 @@ namespace UkrLegistation.Desktop.Json
 
             using (var httpClient = new HttpClient())
             {
+                httpClient.BaseAddress = new Uri("http://ukrlegislation-itevent.rhcloud.com/restserver/");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                     "Basic",
                     Convert.ToBase64String(
@@ -110,9 +97,13 @@ namespace UkrLegistation.Desktop.Json
 
         #endregion
 
+
         
+
+
     }
 }
+
 
 
 

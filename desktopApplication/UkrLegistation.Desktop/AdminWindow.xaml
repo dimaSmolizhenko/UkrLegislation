@@ -1,20 +1,38 @@
 ﻿<Window x:Class="UkrLegistation.Desktop.AdminWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AdminWindow" Height="500" Width="700">
+        Title="AdminWindow" Height="500" Width="1050">
     <Grid>
-        <Button Content="Додати" Name="btn_Add" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Center" Width="75" Click="Button_Click"/>
-        <TextBox x:Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="287,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="LoginBox" HorizontalAlignment="Left" Height="23" Margin="287,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="FullNameBox" HorizontalAlignment="Left" Height="23" Margin="287,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="287,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Login" HorizontalAlignment="Left" Margin="179,105,0,0" VerticalAlignment="Top"/>
-        <Label Content="Password" HorizontalAlignment="Left" Margin="179,131,0,0" VerticalAlignment="Top"/>
-        <Label Content="Full Name&#xD;&#xA;" HorizontalAlignment="Left" Margin="179,161,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="RegistrationDateBox" Content="Registration date" HorizontalAlignment="Left" Margin="179,189,0,0" VerticalAlignment="Top"/>
-        <Label Content="Role" HorizontalAlignment="Left" Margin="179,217,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="RoleBox" HorizontalAlignment="Left" Margin="287,221,0,0" VerticalAlignment="Top" Width="120" DisplayMemberPath="name" SelectedValuePath="id"/>
-        <Button Content="Button" Name="btn_Get" HorizontalAlignment="Left" Margin="73,21,0,0" VerticalAlignment="Top" Width="75" Click="btn_Get_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="466*"/>
+            <ColumnDefinition Width="55*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl HorizontalAlignment="Left" Height="450" Margin="10,10,0,0" VerticalAlignment="Top" Width="920" Loaded="Tab_Load">
+            <TabItem Header="User">
+                <Grid Background="#FFE5E5E5" Margin="10,-8,0,8" Width="900">
+                    <DataGrid Name="dataGrid" HorizontalAlignment="Left"  Margin="10,10,0,0" Loaded="DataGrid_Load" VerticalAlignment="Top" Height="auto" Width="auto"/>
+                    <Button Content="Додати" HorizontalAlignment="Center" Margin="598,294,226,96" VerticalAlignment="Center" Width="76" Click="Button_Click" Height="28"/>
+                    <TextBox x:Name="PasswordBox" HorizontalAlignment="Left" Height="23" Margin="737,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="LoginBox" HorizontalAlignment="Left" Height="23" Margin="737,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="FullNameBox" HorizontalAlignment="Left" Height="23" Margin="737,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Login" HorizontalAlignment="Left" Margin="561,149,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Password" HorizontalAlignment="Left" Margin="561,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.417,0.673"/>
+                    <Label Content="Full Name" HorizontalAlignment="Left" Margin="561,205,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Role" HorizontalAlignment="Left" Margin="561,233,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="RoleBox" HorizontalAlignment="Left" Margin="737,233,0,0" VerticalAlignment="Top" Width="120" DisplayMemberPath="name" SelectedValuePath="id"/>
+                    <Button Content="Видалити" HorizontalAlignment="Left" Margin="715,294,0,0" VerticalAlignment="Top" Width="74" Height="28" Click="Button_Click_1"/>
+                    <Label Content="Id(For delete and put)" HorizontalAlignment="Left" Margin="561,121,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="IdBox" HorizontalAlignment="Left" Height="23" Margin="737,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Button Content="Редагувати" HorizontalAlignment="Left" Margin="656,327,0,0" VerticalAlignment="Top" Width="76" Height="28" Click="Button_Click_2"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Role">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Dep">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>
